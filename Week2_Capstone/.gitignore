@@ -1,0 +1,33 @@
+# ============================================================
+# AFYAPLUS HEALTH - FILES EXCLUDED FROM GITHUB
+# ============================================================
+
+# API keys and environment secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+.venv/
+.venv312/
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Pytest files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# macOS files
+.DS_Store
+
+# IDE settings
+.vscode/
+.idea/
+
+# Log files
+*.log
