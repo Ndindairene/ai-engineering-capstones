@@ -1,8 +1,5 @@
 
 # AfyaPlus Health — Enterprise-Grade RAG-Powered Agent System
-
-## Moringa School | Applied AI Engineering — Week 2 Capstone
-
 ### 1. Project Overview
 
 AfyaPlus Health is an AI-powered training assistant designed
