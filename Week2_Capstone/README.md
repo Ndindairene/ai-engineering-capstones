@@ -1,3 +1,154 @@
+
+# AfyaPlus Health — Enterprise-Grade RAG-Powered Agent System
+
+## Moringa School | Applied AI Engineering — Week 2 Capstone
+
+### 1. Project Overview
+
+AfyaPlus Health is an AI-powered training assistant designed
+to answer fictional healthcare insurance and clinical-routing
+questions using verified local knowledge documents.
+
+The system combines:
+
+- LangChain for AI agent orchestration
+- LlamaIndex for document retrieval
+- OpenRouter for LLM and embedding access
+- Python tools for validated BMI calculations
+- Conversation memory for multi-turn interactions
+- Privacy masking for personal contact information
+- Controlled output de-masking
+
+**Disclaimer:** This is a fictional educational system, not
+a production healthcare application. It cannot verify real
+insurance eligibility, diagnose conditions, or file claims.
+
+### 2. System Architecture
+
+User Question
+    |
+    v
+Privacy Masking (privacy.py)
+    |
+    v
+LangChain AI Agent (agent.py)
+    |
+    +----> LlamaIndex RAG Pipeline
+    |         |
+    |         +--> Insurance Policies
+    |         +--> Clinical Guidelines
+    |
+    +----> BMI Calculation Tool
+    |
+    +----> Conversation Memory
+    |
+    v
+Controlled Output Layer (output_safety.py)
+    |
+    v
+Final User Response
+
+### 3. Project Structure
+
+Week2_Capstone/
+    data/
+        knowledge_manuals/
+            insurance_policy.txt
+            clinical_guidelines.txt
+    src/
+        __init__.py
+        privacy.py
+        rag_pipeline.py
+        tools.py
+        agent.py
+        output_safety.py
+        main.py
+    tests/
+        __init__.py
+        test_privacy.py
+        test_rag.py
+        test_tools.py
+        test_end_to_end.py
+    .env.example
+    .gitignore
+    requirements.txt
+    README.md
+
+### 4. Core Components
+
+#### Privacy Masking
+
+The privacy.py module uses regular expressions to identify
+common Kenyan phone-number formats and email addresses.
+
+Detected values are replaced with placeholders such as:
+
+[PHONE_1]
+[EMAIL_1]
+
+The original values are kept in a separate mapping within
+the application.
+
+#### LlamaIndex RAG Pipeline
+
+The rag_pipeline.py module:
+
+1. Loads fictional AfyaPlus knowledge documents.
+2. Splits them into smaller text chunks.
+3. Converts chunks into embeddings.
+4. Creates a searchable vector index.
+5. Retrieves relevant evidence for user questions.
+
+#### LangChain Agent and Tools
+
+The agent uses the registered tools:
+
+- search_afyaplus_knowledge
+- calculate_bmi
+
+The knowledge-search tool retrieves supporting policy
+excerpts and source filenames.
+
+The BMI tool performs a validated numerical calculation.
+
+#### Conversation Memory
+
+LangGraph's InMemorySaver maintains conversation state
+using a unique thread_id for each session.
+
+This allows the agent to understand follow-up questions.
+
+Memory is temporary and does not persist between
+application restarts.
+
+#### Controlled Output Handling
+
+The output_safety.py module supports selective restoration
+of approved placeholders.
+
+The integrated application currently defaults to
+restoring no personal contact information.
+
+### 5. RAG and Token Management
+
+The retrieval pipeline uses:
+
+- SentenceSplitter for text segmentation
+- Chunk size: 256 tokens
+- Chunk overlap: 30 tokens
+- Similarity top-k: 2
+- OpenRouter-compatible embeddings
+
+These settings aim to balance retrieved context,
+search relevance, and token usage.
+
+The current vector index is constructed in memory.
+Persistent vector storage is not yet implemented.
+
+Retrieved source text is provided to the agent as
+evidence. The agent is instructed to acknowledge
+missing information rather than invent policy details.
+
 ### 6. Privacy and Compliance
 
 The system includes these initial safeguards:
